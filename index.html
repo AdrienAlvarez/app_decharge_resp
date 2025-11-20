@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Génération de Décharge de Responsabilité</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div id="form-section">
+            <h2>Saisie des Données de la Décharge</h2>
+            <form id="data-form">
+                <fieldset>
+                    <legend>Informations Client</legend>
+                    <div class="form-group"><label for="nom_client">Nom Client:</label><input type="text" id="nom_client" required></div>
+                    <div class="form-group"><label for="prenom_client">Prénom Client:</label><input type="text" id="prenom_client" required></div>
+                    <div class="form-group"><label for="adresse_client">Adresse Client:</label><input type="text" id="adresse_client" required></div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Informations Véhicule</legend>
+                    <div class="form-group"><label for="marque">Marque:</label><input type="text" id="marque" required></div>
+                    <div class="form-group"><label for="modele">Modèle:</label><input type="text" id="modele" required></div>
+                    <div class="form-group"><label for="vin">Châssis (VIN):</label><input type="text" id="vin" required></div>
+                    <div class="form-group"><label for="immatriculation">Immatriculation:</label><input type="text" id="immatriculation" required></div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Informations Concession</legend>
+                    <div class="form-group"><label for="nom_concession">Nom Concession:</label><input type="text" id="nom_concession" required></div>
+                    <div class="form-group"><label for="adresse_concession">Adresse Concession:</label><input type="text" id="adresse_concession" required></div>
+                    <div class="form-group"><label for="ville_concession">Ville Concession:</label><input type="text" id="ville_concession" required></div>
+                </fieldset>
+                
+                <div class="form-group"><label for="date_signature">Date de Signature:</label><input type="date" id="date_signature" required></div>
+
+                <button type="submit">Générer le PDF de Décharge</button>
+            </form>
+        </div>
+
+        <div id="document-template" class="document-page" style="display:none;">
+            <div class="logo">ANA</div>
+            <h1 class="centered">Décharge de responsabilité</h1>
+            <p><strong>Client :</strong></p>
+            <p>Je soussigné, <span id="out_nom_client"></span> <span id="out_prenom_client"></span></p>
+            <p>Résident <span id="out_adresse_client"></span></p>
+            <p>Reconnais avoir pris possession, le <span id="out_date_signature"></span> de la garde juridique par le contrôle, la direction et l'usage du véhicule.</p>
+            <p>M'engage à avoir souscrit une assurance sur le véhicule à la date de sa livraison.</p>
+            <p>M'engage à ne pas circuler avec ce véhicule au-delà de la durée légale sans avoir fait établir un nouveau certificat d'immatriculation à mon nom, au cas d'un véhicule déjà immatriculé.</p>
+            
+            <p><strong>Véhicule vendu :</strong></p>
+            <div class="vehicle-info">
+                <p>Marque : <span id="out_marque"></span></p>
+                <p>Modèle : <span id="out_modele_vehicule"></span></p>
+                <p>Châssis : <span id="out_vin"></span></p>
+                <p>N° immatriculation : <span id="out_immatriculation"></span></p>
+            </div>
+            
+            <p>Le kilométrage indiqué au compteur est donné à titre indicatif s'il n'est pas garanti.</p>
+            <p>Je m'engage à ne pas circuler avec ce véhicule au-delà de la durée légale sans avoir fait établir une nouvelle carte grise à mon nom.</p>
+            <p>Je certifie avoir reçu ce jour, lors de la livraison de mon véhicule :</p>
+
+            <table class="checklist">
+                <tr><th></th><th>Oui</th><th>Non</th></tr>
+                <tr><td>2 Clés</td><td>☐</td><td>☐</td></tr>
+                <tr><td>Certificat de conformité</td><td>☐</td><td>☐</td></tr>
+                <tr><td>Certificat d’immatriculation</td><td>☐</td><td>☐</td></tr>
+            </table>
+            
+            <p><strong>Concession :</strong></p>
+            <p>Modèle : <span id="out_modele_concession"></span></p>
+            <p>Châssis : <span id="out_vin_concession"></span></p>
+
+            <p>Par la présente, je dégage :</p>
+            <p><span id="out_nom_concession"></span></p>
+            <p><span id="out_adresse_concession"></span></p>
+            <p>Ancien propriétaire du véhicule, ainsi que tout autre intermédiaire interposé dans la vente, de toutes responsabilités civiles et pénales liées à la garde et à la conduite, à compter de ce jour, et renoncer aux dispositions de l'article 19 bis de la loi du 13 Juillet 1930 concernant l'assurance accidents.</p>
+            
+            <div class="signature-line"></div>
+            
+            <div class="city-date">
+                <p>Fait à : <span id="out_ville_concession"></span></p>
+                <p>Le : <span id="out_date_signature_2"></span></p>
+            </div>
+            
+            <p>Signatures :</p>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
